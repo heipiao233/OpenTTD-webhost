@@ -44,6 +44,7 @@ jobs:
     - name: Build the game
       run: |
         mkdir build
+        cd build
         cmake .. -DHOST_BINARY_DIR=../build-host -DCMAKE_BUILD_TYPE=Release -DOPTION_USE_ASSERTS=OFF
         make -j$(nproc)
     - name: Copy useful files

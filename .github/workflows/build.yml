@@ -45,8 +45,8 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake .. -DHOST_BINARY_DIR=../build-host -DCMAKE_BUILD_TYPE=Release -DOPTION_USE_ASSERTS=OFF
-        make -j$(nproc)
+        emcmake cmake .. -DHOST_BINARY_DIR=../build-host -DCMAKE_BUILD_TYPE=Release -DOPTION_USE_ASSERTS=OFF
+        cmake --build . -j $(nproc) --target openttd
     - name: Copy useful files
       run: |
         mkdir _site

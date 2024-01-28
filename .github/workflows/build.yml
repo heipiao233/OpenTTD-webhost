@@ -1,6 +1,12 @@
 name: Build OpenTTD for emscripten
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'OpenTTD ref'
+        type: string
+        required: false
 
 permissions:
   contents: read
@@ -14,6 +20,7 @@ jobs:
     - uses: actions/checkout@v3
       with:
         repository: OpenTTD/OpenTTD
+        ref: ${{ inputs.ref }}
     - name: Build the Docker image
       run: |
         cd os/emscripten

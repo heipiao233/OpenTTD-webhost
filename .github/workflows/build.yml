@@ -31,8 +31,7 @@ jobs:
         key: 3.1.42-${{ runner.os }}
     - name: Do patch
       run: |
-        cd /emsdk/upstream/emscripten
-        patch -p1 < ${GITHUB_WORKSPACE}/os/emscripten/emsdk-liblzma.patch
+        cp os/emscripten/ports/liblzma.py /emsdk/upstream/emscripten/tools/ports/contrib/liblzma.py
     - name: Build host tools
       run: |
         mkdir build-host

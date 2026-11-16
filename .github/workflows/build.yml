@@ -29,6 +29,8 @@ jobs:
       with:
         path: /emsdk/upstream/emscripten/cache
         key: 3.1.42-${{ runner.os }}
+    - name: Fix git safe.directory for container
+      run: git config --system --add safe.directory "$GITHUB_WORKSPACE"
     - name: Do patch
       run: |
         mkdir -p /emsdk/upstream/emscripten/tools/ports/contrib/

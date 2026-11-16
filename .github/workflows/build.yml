@@ -31,6 +31,7 @@ jobs:
         key: 3.1.42-${{ runner.os }}
     - name: Do patch
       run: |
+        mkdir -p /emsdk/upstream/emscripten/tools/ports/contrib/
         cp os/emscripten/ports/liblzma.py /emsdk/upstream/emscripten/tools/ports/contrib/liblzma.py
     - name: Build host tools
       run: |

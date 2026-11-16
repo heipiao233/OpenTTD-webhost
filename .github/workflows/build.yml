@@ -33,20 +33,34 @@ jobs:
       run: |
         mkdir -p /emsdk/upstream/emscripten/tools/ports/contrib/
         cp os/emscripten/ports/liblzma.py /emsdk/upstream/emscripten/tools/ports/contrib/liblzma.py
-    - name: Build host tools
+    - name: Build (host tools)
       run: |
         mkdir build-host
         cd build-host
+
+        echo "::group::CMake"
         cmake .. -DOPTION_TOOLS_ONLY=ON
-        make -j$(nproc) tools
+        echo "::endgroup::"
+
+        echo "::group::Build"
+        echo "Running on $(nproc) cores"
+        cmake --build . -j $(nproc) --target tools
+        echo "::endgroup::"
     - name: Install GCC problem matcher
       uses: ammaraskar/gcc-problem-matcher@master
-    - name: Build the game
+    - name: Build
       run: |
         mkdir build
         cd build
-        emcmake cmake .. -DHOST_BINARY_DIR=../build-host -DCMAKE_BUILD_TYPE=Release -DOPTION_USE_ASSERTS=OFF
+
+        echo "::group::CMake"
+        emcmake cmake .. -DHOST_BINARY_DIR=../build-host
+        echo "::endgroup::"
+
+        echo "::group::Build"
+        echo "Running on $(nproc) cores"
         cmake --build . -j $(nproc) --target openttd
+        echo "::endgroup::"
     - name: Copy useful files
       run: |
         mkdir _site
